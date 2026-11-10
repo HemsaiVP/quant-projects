@@ -8,7 +8,7 @@ The probability of winning is 1/3 (win if roll = 5 or 6), the game will stop if 
 The program simulates 10,000 runs of 200 bets and shows the median, mean and ruin percentage (percentage of times the game stopped) for each fixed fraction of your bankroll  i.e. your stake.
 
 ## The Kelly fraction
-I used the Kelly fraction which maximises the log growth rate of my wealth which in this case is 1/9
+I used the Kelly fraction which maximises the log growth rate of my wealth which in this case is 1/9.
 
 
 $$
@@ -16,7 +16,7 @@ f^* = \frac{bp - q}{b}, \qquad b = 3,\ p = \frac{1}{3},\ q = \frac{2}{3}
 $$
 
 $$
-f^* = \frac{3 \times \frac{1}{3} - \frac{2}{3}}{3} = \frac{1}{9} \approx 11.1\%
+f^* = \frac{3 \times \frac{1}{3} - \frac{2}{3}}{3} = \frac{1}{9} \approx 0.111
 $$
 
 
