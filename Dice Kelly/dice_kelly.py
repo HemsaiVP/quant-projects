@@ -5,6 +5,7 @@ import statistics #built-in tools for mean, median, etc
 N_BETS = 200 # Number of bets in a row (UPPERCASE = constant we don't change)
 N_SIMS = 10_000 # Number of games to simulate
 SEED = 1 # Fixed seed so every run gives same results
+STARTING_BANKROLL = 100
 
 # Win probability and payout, so we can calculate Kelly in code
 P_WIN = 1 / 3
@@ -21,9 +22,9 @@ def play_one_sequence(fraction):
     wins = 0 # counter: starts at 0, BEFORE the loop
     ruined = False # flag : becomes True if we go bust
     count = 0
-    bankroll = 100 # starting amount in GBP
+    bankroll = STARTING_BANKROLL # starting amount in GBP
     
-    for bet in range(N_BETS):
+    for _ in range(N_BETS):
 
         stake = fraction * bankroll #stake shrinks after losses, grows after wins
 
@@ -37,7 +38,7 @@ def play_one_sequence(fraction):
         count += 1 # Counts number of bets so far
 
         # Win on a 5 or 6 = 2/6 = P_WIN
-        if  roll >= 5: 
+        if roll >= 5: 
             # Win pays 3:1, so we gain 3 times the stake
             bankroll += ODDS * stake # changes bankroll
             wins += 1 # counts the win
@@ -54,13 +55,13 @@ def main():
 
     for fraction in FRACTIONS:
         final_bankrolls = [] # empty list to collect each game's result
-        for _ in range (N_SIMS):
+        for _ in range(N_SIMS):
             result = play_one_sequence(fraction)
             final_bankrolls.append(result["bankroll"]) #add this games result to the end of the list
 
         assert len(final_bankrolls) == N_SIMS  # every game must produce one result
 
-        #get statistics
+        # Get statistics
         median = statistics.median(final_bankrolls)
         mean = statistics.mean(final_bankrolls)
         ruined_share = sum(b < 1 for b in final_bankrolls) / N_SIMS # share of games that went bust
